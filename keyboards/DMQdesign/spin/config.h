@@ -41,10 +41,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-//A and B are technically swapped from the datasheet, but QMK switched encoder direction
-//somewhere so I've reversed the pads here to ensure CW/CCW is correct
-#define ENCODERS_PAD_B { B6, B4, D6 }
-#define ENCODERS_PAD_A { B5, D7, D4 }
+//rotary encoder setup
+#define ENCODERS_PAD_A { B6, B4, D6 }
+#define ENCODERS_PAD_B { B5, D7, D4 }
 #define ENCODER_RESOLUTION 4
 
 //Data pin for the 3 RGB LEDs

@@ -21,11 +21,6 @@
 #define _FL 1
 #define _TL 15
 
-enum {
-  TD_Layer = 0 
-};
-
-bool muteToggle = false;
 uint8_t currentLayer;
 
 
@@ -34,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_KP_7, KC_KP_8, KC_KP_9, TO(_BL), \
                 KC_KP_4, KC_KP_5, KC_KP_6, TO(_FL), \
                 KC_KP_1, KC_KP_2, KC_KP_3, TO(_TL), \
-                TD(TD_Layer), RGB_TOG, RGB_MOD   \
+                KC_KP_0, RGB_TOG, RGB_MOD   \
                 ),
 
     [_FL] = LAYOUT(/* Base */
@@ -52,38 +47,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 ),      
 
 };
-
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {}
-
-void tapLayerChange (qk_tap_dance_state_t *state, void *user_data) {
-    switch (state->count) {
-    case 1:
-        layer_on(_BL);
-        layer_off(_FL);
-        layer_off(_TL);
-        break;
-    case 2:
-      //  layer_off(_BL);
-        layer_on(_FL);
-        layer_off(_TL);
-        break;
-    case 3:
-      //  layer_off(_BL);
-        layer_off(_FL);
-        layer_on(_TL);
-        break;
-    }
-}
-/*
-void rgbFeedback (struct _midi_device *midi_device, unsigned char channel, unsigned char num, unsigned char val) {
-    if (channel == 0){
-        switch (num){
-            case 4:
-            rgblight_setrgb_at(val, 255, 255, 0);
-        }
-    }
-};
-*/
 
 
 void encoder_update_user(uint8_t index, bool clockwise) {
@@ -164,63 +127,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_Layer] = ACTION_TAP_DANCE_FN (tapLayerChange)
-};
-
-void matrix_init_user(void) {
-    setPinInputHigh(C6);
-    setPinInputHigh(E6);
-    setPinInputHigh(B7);
-}
-
-static bool enc0_Pressed;
-static bool enc1_Pressed;
-static bool enc2_Pressed;
-
-void matrix_scan_user(void) {
-    if (readPin(C6)) {
-        enc0_Pressed = false;
-    } else {
-        if (!enc0_Pressed) {
-       // TD(TD_Layer)
-        }
-        enc0_Pressed = true;
-        //rgblight_set();
-    }
-
-    if (readPin(E6)) {
-        enc1_Pressed = false;
-    } else {
-        if (!enc1_Pressed) {
-        //add code here
-        }
-        enc1_Pressed = true;
-        //rgblight_set();
-    }
-
-    if (readPin(B7)) {
-        enc2_Pressed = false;
-    } else {
-        if (!enc2_Pressed) {
-            register_code(KC_LCTRL);
-            register_code(KC_LSHIFT);
-            tap_code(KC_M);
-            clear_keyboard();
-
-            if (muteToggle == false) {
-                muteToggle = true;
-                rgblight_setrgb_at(RGB_RED, 2);
-            } else {
-                muteToggle = false;
-                rgblight_setrgb_at(0, 0, 0, 2);
-            }
-        }
-        enc2_Pressed = true;
-        rgblight_set();
-    }
-}
-
 layer_state_t layer_state_set_user(layer_state_t state) {
     currentLayer = get_highest_layer(state);
 
@@ -236,9 +142,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             setrgb(0, 0, 0, (LED_TYPE *)&led[2]);
             break;
         case _TL:
-            setrgb(RGB_RED, (LED_TYPE *)&led[0]);
-            setrgb(RGB_GREEN, (LED_TYPE *)&led[1]);
-            setrgb(RGB_BLUE, (LED_TYPE *)&led[2]);
+            setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
+            setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
+            setrgb(RGB_WHITE, (LED_TYPE *)&led[2]);
             break;
     }
     rgblight_set();

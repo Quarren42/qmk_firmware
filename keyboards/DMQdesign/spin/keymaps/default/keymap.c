@@ -15,21 +15,12 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-
-void keyboard_pre_init_user(void) {
-  // Call the keyboard pre init code.
-  setPinInputHigh(C6);
-  setPinInputHigh(E6);
-  setPinInputHigh(B7);
-  // Enable pullups on encoder pushbutton
-}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(/* Base */
-                KC_7, KC_8, KC_9, KC_9, \
-                KC_4, KC_5, KC_6, KC_6, \
-                KC_1, KC_2, KC_3, KC_3, \
+                KC_7, KC_8, KC_9, KC_9, KC_TRNS, \
+                KC_4, KC_5, KC_6, KC_6, KC_TRNS, \
+                KC_1, KC_2, KC_3, KC_3, KC_TRNS, \
                 KC_0, KC_DOT, KC_ENTER  \
                 ),
 };
@@ -38,55 +29,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder */
     if (clockwise) {
-      //insert keycode or function
+      rgblight_increase_hue(); //Cycle through the RGB hue
     } else {
-      //insert keycode or function
+      rgblight_decrease_hue();
     }
   } else if (index == 1) { /* Second encoder */  
     if (clockwise) {
-      //insert keycode or function
+      tap_code(KC_VOLU); //Example of using tap_code to use keycodes outside of the keymap
     } else {
-      //insert keycode or function
+      tap_code(KC_VOLD);
     }
   } else if (index == 2) { /* Third encoder */  
     if (clockwise) {
-      //insert keycode or function
+      rgblight_increase_val(); //Change brightness on the RGB LEDs
     } else {
-      //insert keycode or function
+      rgblight_decrease_val();
     }
-  }
-}
-
-//Below is the code for the pushbutton implementation on the encoders
-static bool enc0_Pressed;
-static bool enc1_Pressed;
-static bool enc2_Pressed;
-
-void matrix_scan_user(void) {
-  if (readPin(C6)) {
-    enc0_Pressed = false;
-  } else {
-    if (!enc0_Pressed) {
-      //put keycodes here
-    }
-    enc0_Pressed = true;
-  }
-
-  if (readPin(E6)) {
-    enc1_Pressed = false;
-  } else {
-    if (!enc1_Pressed) {
-      //put keycodes here
-    }
-    enc1_Pressed = true;
-  }
-
-  if (readPin(B7)) {
-    enc2_Pressed = false;
-  } else {
-    if (!enc2_Pressed) {
-      //put keycodes here
-    }
-    enc2_Pressed = true;
   }
 }
