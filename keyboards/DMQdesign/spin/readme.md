@@ -2,8 +2,6 @@
 
 ![SPIN](https://i.imgur.com/8ohIW1V.jpg)
 
-A short description of the keyboard/project
-
 The SPIN Macro Pad is a 12 key, 3 encoder Macro Pad developed by DMQ Design. 
 
 Keyboard Maintainer: [Nicholas Junker](https://github.com/Quarren42)  
