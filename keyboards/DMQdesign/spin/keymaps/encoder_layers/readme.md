@@ -1,1 +1,0 @@
-# This keymap is intended as an example of how to put different encoder functions on different layers.
