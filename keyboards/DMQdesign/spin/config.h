@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x444d51 //DMQ
+#define VENDOR_ID 0xA455
 #define PRODUCT_ID 0x0001 
 #define DEVICE_VER 0x0001
 #define MANUFACTURER DMQ Design
@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 5
-
+//Matrix is 3x5 instead of 3x4, as the 3 encoders are wired into the matrix
 
 #define MATRIX_ROW_PINS \
     { F0, F1, F4 }

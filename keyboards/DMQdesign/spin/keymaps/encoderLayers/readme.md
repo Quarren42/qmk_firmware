@@ -1,1 +1,1 @@
-# The default keymap for spn
+# This keymap is intended to demonstrate how to implement different encoder functions dependent on layer, and on how to implement MIDI control with encoders.

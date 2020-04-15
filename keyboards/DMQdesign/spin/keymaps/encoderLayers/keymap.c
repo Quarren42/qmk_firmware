@@ -1,4 +1,4 @@
-/* Copyright 2019-2020 Nicholas Junker
+/* Copyright 2019-2020 DMQ Design
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 
 uint8_t currentLayer;
 
-
+//The below layers are intentionally empty in order to give a good starting point for how to configure multiple layers.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BL] = LAYOUT(/* Base */
                 KC_KP_7, KC_KP_8, KC_KP_9, TO(_BL), \
@@ -34,25 +34,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FL] = LAYOUT(/* Base */
                 KC_NO, KC_NO, KC_NO, KC_TRNS,\
-                KC_MS_BTN1, RGB_MODE_FORWARD, KC_MS_BTN2, KC_TRNS,\
-                KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, KC_TRNS, \
-                KC_TRNS, KC_NO, KC_NO \
+                KC_NO, KC_NO, KC_NO, KC_TRNS,\
+                KC_NO, KC_NO, KC_NO, KC_TRNS, \
+                KC_MS_BTN1, KC_NO, KC_MS_BTN2 \
                 ),
 
     [_TL] = LAYOUT(/* Base */
                 KC_NO, KC_NO, KC_NO, KC_TRNS,\
                 KC_NO, KC_NO, KC_NO, KC_TRNS,\
                 KC_NO, KC_NO, KC_NO, KC_TRNS,\
-                KC_TRNS, KC_NO, KC_NO  \
+                KC_NO, KC_NO, KC_NO  \
                 ),      
-
 };
 
-
 void encoder_update_user(uint8_t index, bool clockwise) {
-    //midi_register_cc_callback (&midi_device, rgbFeedback);
     if (index == 0) { /* First encoder */
-        switch (currentLayer) {
+        switch (currentLayer) {     //break each encoder update into a switch statement for the current layer
             case _BL:
                 if (clockwise) {
                     rgblight_increase_hue();
@@ -73,8 +70,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 } else {
                     midi_send_cc(&midi_device, 0, 0x1B, 1);
                 }
-                break;
-                
+                break;             
         }
     } else if (index == 1) { /* Second encoder */
         switch (currentLayer) {
@@ -127,29 +123,26 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) { //This will run every time the layer is updated
     currentLayer = get_highest_layer(state);
 
     switch (currentLayer) {
         case _BL:
-            setrgb(RGB_WHITE, (LED_TYPE *)&led[0]);
+            setrgb(RGB_WHITE, (LED_TYPE *)&led[0]); //Set the top LED to white for the bottom layer
             setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
             setrgb(0, 0, 0, (LED_TYPE *)&led[2]);
             break;
         case _FL:
-            setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
+            setrgb(0, 0, 0, (LED_TYPE *)&led[0]); //Set the middle LED to white for the middle layer
             setrgb(RGB_WHITE, (LED_TYPE *)&led[1]);
             setrgb(0, 0, 0, (LED_TYPE *)&led[2]);
             break;
         case _TL:
             setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
             setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
-            setrgb(RGB_WHITE, (LED_TYPE *)&led[2]);
+            setrgb(RGB_WHITE, (LED_TYPE *)&led[2]); //Set the bottom LED to white for the top layer
             break;
     }
     rgblight_set();
     return state;
 }
-
-void led_set_user(uint8_t usb_led) {}
-

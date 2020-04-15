@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(/* Base */
                 KC_7, KC_8, KC_9, KC_TRNS, \
@@ -25,7 +24,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 ),
 };
 
-//code for checking 3 encoders & direction
 void encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder */
     if (clockwise) {
@@ -35,7 +33,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
   } else if (index == 1) { /* Second encoder */  
     if (clockwise) {
-      tap_code(KC_VOLU); //Example of using tap_code to use keycodes outside of the keymap
+      tap_code(KC_VOLU); //Example of using tap_code which lets you use keycodes outside of the keymap
     } else {
       tap_code(KC_VOLD);
     }
