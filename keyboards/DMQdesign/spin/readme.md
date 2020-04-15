@@ -8,7 +8,7 @@ Keyboard Maintainer: [Nicholas Junker](https://github.com/Quarren42)
 
 Hardware Supported: SPIN Macro Pad PCB/kit
 
-Hardware Availability: The macro pad is available at DMQdesign.com
+Hardware Availability: The macro pad is available at [DMQdesign.com](www.dmqdesign.com)
 
 
 Make example for this keyboard (after setting up your build environment):
