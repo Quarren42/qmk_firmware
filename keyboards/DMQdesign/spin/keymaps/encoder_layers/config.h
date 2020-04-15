@@ -16,6 +16,9 @@
 
 #pragma once
 
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_HUE_STEP 8
+#define MIDI_ENABLE_STRICT 1
+#define MIDI_ADVANCED
 
 // place overrides here
