@@ -25,6 +25,9 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
+
+ //k03, k13, and k23 represent the pushbuttons on the Encoders
+ 
 #define LAYOUT(k00, k01, k02, k03, \
                k10, k11, k12, k13, \
                k20, k21, k22, k23, \

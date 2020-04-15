@@ -20,16 +20,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x1A4
-#define PRODUCT_ID 0x1B39
+#define VENDOR_ID 0x444d51 //DMQ
+#define PRODUCT_ID 0x0001 
 #define DEVICE_VER 0x0001
 #define MANUFACTURER DMQ Design
 #define PRODUCT  SPIN
-#define DESCRIPTION The SPIN Macro Pad is a 12 key Macro Pad by DMQ Design that features 3 rotary encoders.
+#define DESCRIPTION The SPIN Macro Pad is a 12 key Macro Pad by DMQ Design with 3 rotary encoders, inspired by the Plaid & RoMac.
 
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 5
+
 
 #define MATRIX_ROW_PINS \
     { F0, F1, F4 }
